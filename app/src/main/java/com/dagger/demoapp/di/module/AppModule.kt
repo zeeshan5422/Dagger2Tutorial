@@ -1,16 +1,17 @@
 package com.dagger.demoapp.di.module
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
 import com.dagger.demoapp.di.scope.AppScope
 import com.dagger.demoapp.models.DemoDatabase
 import com.dagger.demoapp.repo.CacheRepository
 import com.dagger.demoapp.repo.DataRepository
-import com.dagger.demoapp.repo.DemoActivitymanager
+import com.dagger.demoapp.repo.ActivityManager
 import com.dagger.demoapp.repo.NetworkRepository
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
+import javax.inject.Named
 
 @Module
 object AppModule {
@@ -42,15 +43,15 @@ object AppModule {
         return CacheRepository(demoDatabase)
     }
 
-    /*@Provides
+    @Provides
     @AppScope
     fun provideDemoDatabase(): DemoDatabase {
         return DemoDatabase()
-    }*/
-
-    @Provides
-    fun provideDemoActivityManager(): DemoActivitymanager {
-        return DemoActivitymanager()
     }
+
+   /* @Provides
+    fun provideDemoActivityManager(): ActivityManager {
+        return ActivityManager()
+    }*/
 
 }
