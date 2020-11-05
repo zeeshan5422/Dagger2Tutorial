@@ -13,6 +13,7 @@ import com.dagger.demoapp.repo.ActivityManager
 import com.dagger.demoapp.repo.ApplicationFragmentManager
 import com.dagger.demoapp.repo.DataRepository
 import javax.inject.Inject
+import javax.inject.Named
 
 class AssetsFragment private constructor() : Fragment() {
 
@@ -23,6 +24,9 @@ class AssetsFragment private constructor() : Fragment() {
     @Inject
     lateinit var dataRepo: DataRepository
 
+    @Named("DAGGER_COUNT")
+    @Inject
+    lateinit var mCount : String
     @Inject
     lateinit var demoActivityManager: ActivityManager
 

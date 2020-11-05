@@ -19,7 +19,7 @@ class ApplicationFragment : Fragment() {
 
     val fragmentComponent by lazy {
         (requireActivity() as MainActivity).activityComponent.applicationFragmentComponent()
-            .create()
+            .create("15")
     }
 
 

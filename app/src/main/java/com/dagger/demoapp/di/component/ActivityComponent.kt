@@ -26,8 +26,6 @@ interface ActivityComponent {
 
     fun inject(dashboardFragment: DashboardFragment)
 
-    fun inject(applicationFragment: ApplicationFragment)
-
     fun applicationFragmentComponent(): FragmentComponent.Factory
 
 }
