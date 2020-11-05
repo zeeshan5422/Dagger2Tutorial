@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.dagger.demoapp.MyApplication
 import com.dagger.demoapp.R
 import com.dagger.demoapp.repo.ActivityManager
 import com.dagger.demoapp.repo.DataRepository
@@ -18,6 +17,12 @@ class ApplicationFragment : Fragment() {
 
     val TAG = "ApplicationFragment"
 
+    val fragmentComponent by lazy {
+        (requireActivity() as MainActivity).activityComponent.applicationFragmentComponent()
+            .create()
+    }
+
+
     @Inject
     lateinit var dataRepo: DataRepository
 
@@ -27,7 +32,8 @@ class ApplicationFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 //        (requireActivity().application as MyApplication).appComponent.inject(this)
-        (requireActivity() as MainActivity).activityComponent.inject(this)
+//        (requireActivity() as MainActivity).activityComponent.inject(this)
+        fragmentComponent.inject(this)
     }
 
     override fun onCreateView(
@@ -60,9 +66,9 @@ class ApplicationFragment : Fragment() {
 
         var fragment: Fragment? = null
         if (i == 0) {
-            fragment = FinancialsFragment.newInstance()
+            fragment = FinancialsFragment.newInstance(fragmentComponent)
         } else {
-            fragment = AssetsFragment.newInstance()
+            fragment = AssetsFragment.newInstance(fragmentComponent)
         }
         transaction.replace(R.id.app_fragment_container, fragment)
         transaction.commit()

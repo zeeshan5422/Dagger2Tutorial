@@ -1,6 +1,7 @@
 package com.dagger.demoapp.di.component
 
 import com.dagger.demoapp.di.module.ActivityModule
+import com.dagger.demoapp.di.module.ActivitySubComponent
 import com.dagger.demoapp.di.module.AppModule
 import com.dagger.demoapp.di.scope.ActivityScope
 import com.dagger.demoapp.di.scope.AppScope
@@ -13,7 +14,7 @@ import dagger.Subcomponent
 
 
 @ActivityScope
-@Subcomponent(modules = [ActivityModule::class])
+@Subcomponent(modules = [ActivityModule::class, ActivitySubComponent::class])
 interface ActivityComponent {
 
     @Subcomponent.Factory
@@ -26,5 +27,7 @@ interface ActivityComponent {
     fun inject(dashboardFragment: DashboardFragment)
 
     fun inject(applicationFragment: ApplicationFragment)
+
+    fun applicationFragmentComponent(): FragmentComponent.Factory
 
 }

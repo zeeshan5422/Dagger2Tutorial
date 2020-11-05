@@ -2,16 +2,37 @@ package com.dagger.demoapp.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.dagger.demoapp.R
+import com.dagger.demoapp.di.component.FragmentComponent
+import com.dagger.demoapp.repo.ActivityManager
+import com.dagger.demoapp.repo.ApplicationFragmentManager
+import com.dagger.demoapp.repo.DataRepository
+import javax.inject.Inject
 
-class FinancialsFragment : Fragment() {
+class FinancialsFragment private constructor(): Fragment() {
+
+    val TAG = "FinancialsFragment"
+
+    lateinit var fragmentComponent: FragmentComponent
+
+    @Inject
+    lateinit var dataRepo: DataRepository
+
+    @Inject
+    lateinit var demoActivityManager: ActivityManager
+
+    @Inject
+    lateinit var fragManager: ApplicationFragmentManager
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        fragmentComponent.inject(this)
     }
 
     override fun onCreateView(
@@ -21,9 +42,29 @@ class FinancialsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_financials, container, false)
     }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        Log.v(TAG, " >> Hash code of dataRepository is : " + dataRepo.hashCode().toString())
+
+        Log.v(
+            TAG,
+            " >> Hash code of demoActivityManager is : " + demoActivityManager.hashCode().toString()
+        )
+        Log.v(
+            TAG,
+            " >> Hash code of fragment manager is : " + fragManager.hashCode().toString()
+        )
+    }
+
     companion object {
 
         @JvmStatic
-        fun newInstance() = FinancialsFragment()
+        fun newInstance(fragmentComponent: FragmentComponent) = FinancialsFragment(fragmentComponent)
+    }
+
+    private constructor(fragmentComponent: FragmentComponent) : this() {
+        this.fragmentComponent = fragmentComponent
     }
 }
